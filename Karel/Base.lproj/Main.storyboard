@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Karel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" userLabel="MainView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6b-5R-gQt" userLabel="KarelView">
+                                <rect key="frame" x="16" y="20" width="343" height="539"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dun-Ev-TFV" userLabel="ControlView">
+                                <rect key="frame" x="16" y="567" width="343" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ad5-fF-jWC">
+                                        <rect key="frame" x="8" y="8" width="103.5" height="84"/>
+                                        <state key="normal" title="Left"/>
+                                        <connections>
+                                            <action selector="turnLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gDm-QK-AGw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhE-M7-bvp">
+                                        <rect key="frame" x="119.5" y="8" width="104" height="84"/>
+                                        <state key="normal" title="Move"/>
+                                        <connections>
+                                            <action selector="move:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l1g-Cm-kKL"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idi-gn-I3x">
+                                        <rect key="frame" x="231.5" y="8" width="103.5" height="84"/>
+                                        <state key="normal" title="Right"/>
+                                        <connections>
+                                            <action selector="turnRight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VE9-vB-OxT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Idi-gn-I3x" firstAttribute="top" secondItem="Dun-Ev-TFV" secondAttribute="top" constant="8" id="2VP-I8-Pfc"/>
+                                    <constraint firstItem="Ad5-fF-jWC" firstAttribute="leading" secondItem="Dun-Ev-TFV" secondAttribute="leading" constant="8" id="4bM-hF-caA"/>
+                                    <constraint firstAttribute="bottom" secondItem="Idi-gn-I3x" secondAttribute="bottom" constant="8" id="4wN-tU-IJq"/>
+                                    <constraint firstAttribute="height" constant="100" id="5Xs-B6-aZ1"/>
+                                    <constraint firstItem="Ad5-fF-jWC" firstAttribute="top" secondItem="Dun-Ev-TFV" secondAttribute="top" constant="8" id="7ZY-S4-hrf"/>
+                                    <constraint firstItem="Idi-gn-I3x" firstAttribute="width" secondItem="Ad5-fF-jWC" secondAttribute="width" id="9LX-xj-IHu"/>
+                                    <constraint firstAttribute="trailing" secondItem="Idi-gn-I3x" secondAttribute="trailing" constant="8" id="AsM-JJ-dK0"/>
+                                    <constraint firstItem="Ad5-fF-jWC" firstAttribute="width" secondItem="Idi-gn-I3x" secondAttribute="width" id="CBk-S7-Gyc"/>
+                                    <constraint firstAttribute="bottom" secondItem="vhE-M7-bvp" secondAttribute="bottom" constant="8" id="Lds-De-WVl"/>
+                                    <constraint firstItem="vhE-M7-bvp" firstAttribute="leading" secondItem="Ad5-fF-jWC" secondAttribute="trailing" constant="8" id="hta-Nn-D8b"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ad5-fF-jWC" secondAttribute="bottom" constant="8" id="jf9-Ju-4eQ"/>
+                                    <constraint firstItem="vhE-M7-bvp" firstAttribute="top" secondItem="Dun-Ev-TFV" secondAttribute="top" constant="8" id="mx0-g5-4Wa"/>
+                                    <constraint firstItem="Idi-gn-I3x" firstAttribute="leading" secondItem="vhE-M7-bvp" secondAttribute="trailing" constant="8" id="uMp-Ml-m70"/>
+                                    <constraint firstItem="vhE-M7-bvp" firstAttribute="width" secondItem="Ad5-fF-jWC" secondAttribute="width" id="xLr-kI-MgI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Dun-Ev-TFV" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="4QQ-Lg-V6x"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="C6b-5R-gQt" secondAttribute="trailing" id="a2Z-go-UBH"/>
+                            <constraint firstItem="Dun-Ev-TFV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jgM-En-14Y"/>
+                            <constraint firstItem="C6b-5R-gQt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jwy-QE-dsE"/>
+                            <constraint firstItem="C6b-5R-gQt" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="20" id="lPM-Lh-OvV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Dun-Ev-TFV" secondAttribute="bottom" id="q1L-w7-DOs"/>
+                            <constraint firstItem="Dun-Ev-TFV" firstAttribute="top" secondItem="C6b-5R-gQt" secondAttribute="bottom" constant="8" id="zt0-gf-2xg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="karelView" destination="C6b-5R-gQt" id="etb-aq-pEO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
+        </scene>
+    </scenes>
+</document>
