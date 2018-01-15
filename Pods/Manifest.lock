@@ -4,10 +4,19 @@ PODS:
   - EVReflection/Core (5.4.4)
 
 DEPENDENCIES:
-  - EVReflection
+  - EVReflection (from `https://github.com/evermeer/EVReflection.git`)
+
+EXTERNAL SOURCES:
+  EVReflection:
+    :git: https://github.com/evermeer/EVReflection.git
+
+CHECKOUT OPTIONS:
+  EVReflection:
+    :commit: 46ebe255ab59ac8e8db4cc77593ca025cf43294b
+    :git: https://github.com/evermeer/EVReflection.git
 
 SPEC CHECKSUMS:
-  EVReflection: 3f6d255f8173ec81a2a6aad81482f253cff82b55
+  EVReflection: 7cda7bce68d0d186722a7895464114300c142fa2
 
 PODFILE CHECKSUM: 23ca105f171215824b18ee98b7732ef07b013224
 

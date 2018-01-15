@@ -86,16 +86,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		1881A7D5200CBD1D00C7901E /* KarelEnvironment */ = {
-			isa = PBXGroup;
-			children = (
-				E52D2D0D1EA40ABF005F6F83 /* Controller */,
-				E5F586B21EA2239400214D97 /* View */,
-				E5F586B11EA2238C00214D97 /* Model */,
-			);
-			path = KarelEnvironment;
-			sourceTree = "<group>";
-		};
 		1F1532576E3FC5EE698B212A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,7 +110,18 @@
 				E52D2D0E1EA40B66005F6F83 /* Karel.swift */,
 			);
 			name = Controller;
-			path = ..;
+			path = ../..;
+			sourceTree = "<group>";
+		};
+		E59D8D8A200D1DB500A3CB79 /* KarelEnvironment */ = {
+			isa = PBXGroup;
+			children = (
+				E52D2D0D1EA40ABF005F6F83 /* Controller */,
+				E5F586B21EA2239400214D97 /* View */,
+				E5F586B11EA2238C00214D97 /* Model */,
+			);
+			name = KarelEnvironment;
+			path = KarelEnvironment/KarelEnvironment;
 			sourceTree = "<group>";
 		};
 		E5F5868C1EA14C8300214D97 = {
@@ -147,7 +148,7 @@
 				E5F586981EA14C8300214D97 /* AppDelegate.swift */,
 				E5F5869A1EA14C8300214D97 /* ViewController.swift */,
 				187FC434200CA8E7006E7ED8 /* GA */,
-				1881A7D5200CBD1D00C7901E /* KarelEnvironment */,
+				E59D8D8A200D1DB500A3CB79 /* KarelEnvironment */,
 				E5F5869C1EA14C8300214D97 /* Main.storyboard */,
 				E5F5869F1EA14C8300214D97 /* Assets.xcassets */,
 				E5F586A41EA14C8300214D97 /* Info.plist */,
@@ -167,7 +168,7 @@
 				E52D2D0B1EA4086B005F6F83 /* KarelData.swift */,
 			);
 			name = Model;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		E5F586B21EA2239400214D97 /* View */ = {
@@ -178,7 +179,7 @@
 				E5F586AF1EA18B2F00214D97 /* KarelView.swift */,
 			);
 			name = View;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		E99B2365015CBD5A6047962E /* Frameworks */ = {
@@ -224,7 +225,7 @@
 				TargetAttributes = {
 					E5F586941EA14C8300214D97 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 7VNH6E79SD;
+						DevelopmentTeam = W3Q736QM6S;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
@@ -469,10 +470,10 @@
 			baseConfigurationReference = CF0A71C183401F5719C26F14 /* Pods-Karel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7VNH6E79SD;
+				DEVELOPMENT_TEAM = W3Q736QM6S;
 				INFOPLIST_FILE = Karel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gprowess.mobility.ios.Karel;
+				PRODUCT_BUNDLE_IDENTIFIER = "rajan.gokul.Karel-GA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -484,10 +485,10 @@
 			baseConfigurationReference = 942ABF44213461EE63B86D51 /* Pods-Karel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7VNH6E79SD;
+				DEVELOPMENT_TEAM = W3Q736QM6S;
 				INFOPLIST_FILE = Karel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.gprowess.mobility.ios.Karel;
+				PRODUCT_BUNDLE_IDENTIFIER = "rajan.gokul.Karel-GA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
