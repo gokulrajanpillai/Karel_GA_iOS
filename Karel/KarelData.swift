@@ -14,7 +14,7 @@ enum KarelDirection : Int {
 
 class KarelData {
     
-    static let sharedInstance = KarelData()
+//    static let sharedInstance = KarelData()
     
     var direction: KarelDirection = .Right
     
@@ -29,7 +29,6 @@ class KarelData {
             turnLeft()
             directionUpdated()
         }
-        
     }
     
     func directionUpdated() {

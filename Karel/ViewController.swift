@@ -12,44 +12,45 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var karelView: UIView!
     
-    var karel = Karel.sharedInstance
+    var karel: Karel?
     
     var canvas: Canvas! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        fetchInitialAndFinalStates()
         
     }
-
-    static var i : Int = 0
     
     override func viewDidLayoutSubviews() {
-        
-        if (ViewController.i == 0) {
-            
-            canvas = Canvas(frame: self.karelView.bounds);
-            karel.canvasDelegate = canvas as CanvasDelegate
-            self.karelView.addSubview(canvas);
-            ViewController.i+=1
-        }
+        karel = Karel(view: self.karelView)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // MARK: - GA
+    
+    /**
+     Fetch the initial and final states of the map from the json inputs
+     */
+    func fetchInitialAndFinalStates() {
+        
+        let json:String = "{\"x\": 0, \"y\": 0, \"isWall\": \"false\", \"isKarelPresent\": \"true\",  \"karelDirection\": \"right\", \"isBeeperPresent\": \"false\"}"
+        let initialState = BlockData(json: json)
+        
     }
+    
+    // MARK: - User Actions
 
     @IBAction func turnLeft(_ sender: Any) {
-        karel.turnLeft()
+        karel!.turnLeft()
     }
 
     @IBAction func turnRight(_ sender: Any) {
-        karel.turnRight()
+        karel!.turnRight()
     }
     
     @IBAction func move(_ sender: Any) {
-        karel.move()
+        karel!.move()
     }
 }
 

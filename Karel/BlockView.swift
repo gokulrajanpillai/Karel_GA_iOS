@@ -8,15 +8,23 @@
 
 import UIKit
 
-class BlockView: UIView {
- 
-    var blockData : BlockData
+protocol BlockViewDelegate {
     
-    init(data: BlockData, frame: CGRect) {
+    func getKarelDirection() -> KarelDirection
+}
+
+class BlockView: UIView, BlockViewDelegate {
+ 
+    var blockData   : BlockData
+    
+    var delegate    : CanvasDelegate?
+    
+    init(data: BlockData, frame: CGRect, delegate: CanvasDelegate) {
         self.blockData = data
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
-        NotificationCenter.default.addObserver(self, selector: #selector(setNeedsDisplay as (Void) -> (Void)), name: NSNotification.Name(rawValue: "BlockUpdated"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setNeedsDisplay as () -> (Void)), name: NSNotification.Name(rawValue: "BlockUpdated"), object: nil)
+        self.delegate = delegate
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,28 +62,32 @@ class BlockView: UIView {
     
     func drawWalls() {
         
-        let path = UIBezierPath()
-        
-        if (blockData.HAS_WALL_LEFT) {
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: 0, y: self.bounds.height))
+        if blockData.IS_WALL {
+            self.backgroundColor = UIColor.black
         }
-        if (blockData.HAS_WALL_RIGHT) {
-            path.move(to: CGPoint(x: self.bounds.width-1, y: 0))
-            path.addLine(to: CGPoint(x: self.bounds.width-1, y: self.bounds.height-1))
-        }
-        if (blockData.HAS_WALL_UP) {
-            path.move(to: CGPoint(x: 0, y: 0))
-            path.addLine(to: CGPoint(x: self.bounds.width-1, y: 0))
-        }
-        if (blockData.HAS_WALL_DOWN) {
-            path.move(to: CGPoint(x: 0, y: self.bounds.height-1))
-            path.addLine(to: CGPoint(x: self.bounds.width-1, y: self.bounds.height-1))
-        }
-        
-        UIColor.blue.set()
-        path.stroke()
-        path.fill()
+
+//        let path = UIBezierPath()
+//
+//        if (blockData.HAS_WALL_LEFT) {
+//            path.move(to: CGPoint(x: 0, y: 0))
+//            path.addLine(to: CGPoint(x: 0, y: self.bounds.height))
+//        }
+//        if (blockData.HAS_WALL_RIGHT) {
+//            path.move(to: CGPoint(x: self.bounds.width-1, y: 0))
+//            path.addLine(to: CGPoint(x: self.bounds.width-1, y: self.bounds.height-1))
+//        }
+//        if (blockData.HAS_WALL_UP) {
+//            path.move(to: CGPoint(x: 0, y: 0))
+//            path.addLine(to: CGPoint(x: self.bounds.width-1, y: 0))
+//        }
+//        if (blockData.HAS_WALL_DOWN) {
+//            path.move(to: CGPoint(x: 0, y: self.bounds.height-1))
+//            path.addLine(to: CGPoint(x: self.bounds.width-1, y: self.bounds.height-1))
+//        }
+//
+//        UIColor.blue.set()
+//        path.stroke()
+//        path.fill()
     }
     
     func drawKarel(frame : CGRect) {
@@ -92,7 +104,7 @@ class BlockView: UIView {
         let kDim = self.frame.width - 20
         let frame = CGRect(x: ((self.frame.width/2) - (kDim/2)), y: ((self.frame.height/2) - (kDim/2)), width: kDim, height: kDim)
         
-        let karelView = KarelView(frame: frame)
+        let karelView = KarelView(frame: frame, delegate: self)
         karelView.tag = 777
         addSubview(karelView)
     }
@@ -103,5 +115,10 @@ class BlockView: UIView {
                 $0.removeFromSuperview()
             }
         })
+    }
+    
+    // MARK: - BlockView delegate
+    func getKarelDirection() -> KarelDirection {
+        return (delegate?.getKarelDirection())!
     }
 }

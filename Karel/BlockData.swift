@@ -7,11 +7,19 @@
 //
 
 import Foundation
+import EVReflection
 
-class BlockData {
+class BlockData : EVObject {
     
     public var x = 0
     public var y = 0
+    
+    public var IS_WALL        = false
+    {
+        didSet {
+            postSetNotify()
+        }
+    }
     
     public var HAS_KAREL       = false
         {
@@ -19,36 +27,39 @@ class BlockData {
             postSetNotify()
         }
     }
+    
     public var HAS_BEEPER      = false
         {
         didSet {
             postSetNotify()
         }
     }
-    public var HAS_WALL_LEFT   = false
-        {
-        didSet {
-            postSetNotify()
-        }
-    }
-    public var HAS_WALL_RIGHT  = false
-        {
-        didSet {
-            postSetNotify()
-        }
-    }
-    public var HAS_WALL_UP     = false
-        {
-        didSet {
-            postSetNotify()
-        }
-    }
-    public var HAS_WALL_DOWN   = false
-        {
-        didSet {
-            postSetNotify()
-        }
-    }
+    
+//    public var HAS_WALL_LEFT   = false
+//        {
+//        didSet {
+//            postSetNotify()
+//        }
+//    }
+//    public var HAS_WALL_RIGHT  = false
+//        {
+//        didSet {
+//            postSetNotify()
+//        }
+//    }
+//    public var HAS_WALL_UP     = false
+//        {
+//        didSet {
+//            postSetNotify()
+//        }
+//    }
+//    public var HAS_WALL_DOWN   = false
+//        {
+//        didSet {
+//            postSetNotify()
+//        }
+//    }
+//
     
     func postSetNotify() {
         
@@ -58,5 +69,13 @@ class BlockData {
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
+    }
+    
+    required convenience init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    required init() {
+        fatalError("init() has not been implemented")
     }
 }

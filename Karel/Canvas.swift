@@ -10,29 +10,66 @@ import UIKit
 
 protocol CanvasDelegate {
     
-    func moveKarel(direction : KarelDirection)
+    func getKarelDirection() -> KarelDirection
 }
 
-class Canvas: UIView, CanvasDelegate{
+class Canvas: UIView, CanvasDelegate {
     
-    var BLOCK_DIM : Int
+    private var BLOCK_DIM = 0
     
-    let BLOCK_DIM_X = 7
+    private var BLOCK_DIM_X = 0
     
-    let BLOCK_DIM_Y = 12
+    private var BLOCK_DIM_Y = 0
     
-    var currentKarelBlock : BlockData! = nil
+    private var DISTANCE_FROM_BOUNDARY = 0
     
-    var blocks = [[BlockData]]()
+    private var currentKarelBlock : BlockData! = nil
     
-    override init(frame: CGRect) {
-        BLOCK_DIM = Int(Float(frame.width) / Float(BLOCK_DIM_X))
+    private var blocks = [[BlockData]]()
+    
+    private var delegate: KarelDelegate?
+    
+    init(frame: CGRect, row: Int = 5, column: Int = 5, backgroundColor: UIColor = UIColor.white, delegate: KarelDelegate) {
+        
         super.init(frame: frame)
-        self.backgroundColor = UIColor.white
+        self.configureCanvas(row: row, column: column, backgroundColor: backgroundColor)
+        self.assignDimensions(row: row, column: column)
+        self.delegate = delegate
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK :- Define initial and final states
+    
+    
+    // MARK :- Canvas configuration
+    private func configureCanvas(row: Int, column: Int, backgroundColor: UIColor) {
+        assignBackgroundColor(color: backgroundColor)
+        assignDimensions(row: row, column: column)
+        calculateDimensions()
+    }
+    
+    private func assignBackgroundColor(color: UIColor) {
+        self.backgroundColor = color
+    }
+    
+    private func assignDimensions(row: Int, column: Int) {
+        BLOCK_DIM_Y = row
+        BLOCK_DIM_X = column
+        calculateDimensions()
+    }
+    
+    private func calculateDimensions() {
+        
+        BLOCK_DIM = Int(Float(frame.width) / Float(BLOCK_DIM_X))
+        if (BLOCK_DIM * BLOCK_DIM_Y) > Int(Float(frame.height)) {
+            
+            BLOCK_DIM = Int(Float(frame.height) / Float(BLOCK_DIM_Y))
+            DISTANCE_FROM_BOUNDARY = Int((Float(frame.width) - (Float(BLOCK_DIM_X) * Float(BLOCK_DIM))) / 2)
+        }
     }
     
     override func draw(_ rect: CGRect) {
@@ -55,7 +92,7 @@ class Canvas: UIView, CanvasDelegate{
                     currentKarelBlock = blockData
                 }
                 
-                self.addSubview(BlockView(data: blockData, frame: CGRect(origin: CGPoint(x: x*BLOCK_DIM, y: y*BLOCK_DIM), size: BLOCK_SIZE)))
+                self.addSubview(BlockView(data: blockData, frame: CGRect(origin: CGPoint(x: DISTANCE_FROM_BOUNDARY + x*BLOCK_DIM, y: y*BLOCK_DIM), size: BLOCK_SIZE), delegate: self))
             }
         }
     }
@@ -64,14 +101,20 @@ class Canvas: UIView, CanvasDelegate{
     
         let futureKarelBlock = getFutureBlock(direction: direction)
         
-        if ((futureKarelBlock) != nil) {
-            currentKarelBlock.HAS_KAREL =   false
-            futureKarelBlock!.HAS_KAREL  =   true
-            currentKarelBlock = futureKarelBlock!
+        // If the new block exists
+        if let futureBlock = futureKarelBlock {
+            
+            // If the new block is not a wall
+            if !futureBlock.IS_WALL {
+                
+                currentKarelBlock.HAS_KAREL =   false
+                futureBlock.HAS_KAREL       =   true
+                currentKarelBlock           =   futureBlock
+            }
         }
     }
     
-    func getFutureBlock(direction: KarelDirection) -> BlockData? {
+    private func getFutureBlock(direction: KarelDirection) -> BlockData? {
         
         let x = currentKarelBlock.x
         let y = currentKarelBlock.y
@@ -84,8 +127,14 @@ class Canvas: UIView, CanvasDelegate{
         }
     }
     
-    func getBlock(x: Int, y: Int) -> BlockData {
+    private func getBlock(x: Int, y: Int) -> BlockData {
         
         return blocks[x][y]
     }
+    
+    // MARK: - Canvas delegate
+    func getKarelDirection() -> KarelDirection {
+        return (delegate?.getKarelDirection())!
+    }
+    
 }

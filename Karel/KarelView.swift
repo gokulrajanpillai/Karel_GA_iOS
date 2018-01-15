@@ -10,13 +10,14 @@ import UIKit
 
 class KarelView : UIView {
     
-    var karel = Karel.sharedInstance
+    var delegate: BlockViewDelegate?
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, delegate: BlockViewDelegate) {
         
         super.init(frame:frame)
         self.backgroundColor = UIColor.white
-        NotificationCenter.default.addObserver(self, selector: #selector(setNeedsDisplay as (Void) -> (Void)), name: NSNotification.Name(rawValue: "KarelDirectionChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(setNeedsDisplay as () -> (Void)), name: NSNotification.Name(rawValue: "KarelDirectionChanged"), object: nil)
+        self.delegate = delegate
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,22 +28,31 @@ class KarelView : UIView {
         
         self.subviews.forEach({$0.removeFromSuperview()})
         
-        let karel = UIImageView(image: UIImage(named: imageForDirection()))
+        let karel = UIImageView(image: imageForDirection())
         karel.frame = self.bounds
         karel.contentMode = .scaleAspectFill
         self.addSubview(karel)
     }
     
-    func imageForDirection() -> String {
+    func imageForDirection() -> UIImage? {
         
-        switch karel.direction() {
+        switch (delegate?.getKarelDirection())! {
             
-        case .Left  : return "karelLeft"
-        case .Right : return "karelRight"
-        case .Top   : return "karelUp"
-        case .Down  : return "karelDown"
-            
+            case .Left  : return imageForName(name: "karelLeft")
+            case .Right : return imageForName(name: "karelRight")
+            case .Top   : return imageForName(name: "karelUp")
+            case .Down  : return imageForName(name: "karelDown")
         }
+    }
+    
+    func imageForName(name: String) -> UIImage? {
+        
+        let frameworkBundle = Bundle(for: KarelView.self)
+        let imagePath = frameworkBundle.path(forResource: name, ofType: "png")
+        if imagePath != nil {
+            return UIImage(contentsOfFile: imagePath!)
+        }
+        return nil
     }
     
 }

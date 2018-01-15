@@ -7,31 +7,43 @@
 //
 
 import Foundation
+import UIKit
 
-class Karel {
+protocol KarelDelegate {
     
-    static let sharedInstance = Karel()
+    func getKarelDirection() -> KarelDirection
+}
+
+class Karel: KarelDelegate{
     
-    var canvasDelegate: CanvasDelegate? = nil
+    let data: KarelData?
     
-    let data = KarelData.sharedInstance
+    var karelEnvironmentView: UIView?
+    
+    var canvas: Canvas?
+    
+    init(view: UIView, row: Int = 5, column: Int = 5, backgroundColor: UIColor = UIColor.white) {
         
+        karelEnvironmentView     = view
+        data                     = KarelData()
+        canvas                   = Canvas(frame: (karelEnvironmentView?.bounds)!, row: row, column: column, backgroundColor: backgroundColor, delegate: self)
+        self.karelEnvironmentView?.addSubview(self.canvas!)
+    }
+    
     func move() {
-        
-        canvasDelegate!.moveKarel(direction: data.direction)
+        canvas!.moveKarel(direction: data!.direction)
     }
     
     func turnLeft() {
-        data.turnLeft()
+        data!.turnLeft()
     }
     
     func turnRight() {
-        data.turnRight()
+        data!.turnRight()
     }
     
-    func direction() -> KarelDirection {
-        return data.direction
+    func getKarelDirection() -> KarelDirection {
+        return data!.direction
     }
-    
-    
+
 }
