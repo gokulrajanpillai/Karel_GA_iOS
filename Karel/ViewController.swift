@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        fetchInitialAndFinalStates()
+//        fetchInitialAndFinalStates()
         
     }
     
@@ -34,8 +34,13 @@ class ViewController: UIViewController {
      */
     func fetchInitialAndFinalStates() {
         
-        let json:String = "{\"x\": 0, \"y\": 0, \"isWall\": \"false\", \"isKarelPresent\": \"true\",  \"karelDirection\": \"right\", \"isBeeperPresent\": \"false\"}"
-        let initialState = BlockData(json: json)
+//        let initialStateJson:String = "{\"x\": 0, \"y\": 0, \"isWall\": \"false\", \"isKarelPresent\": \"true\",  \"karelDirection\": \"right\", \"isBeeperPresent\": \"false\"}"
+//        let initialState = BlockData(json: initialStateJson)
+//        
+//        
+//        let finalStateJson:String = "{\"x\": 0, \"y\": 0, \"isWall\": \"false\", \"isKarelPresent\": \"true\",  \"karelDirection\": \"right\", \"isBeeperPresent\": \"false\"}"
+//        let finalState = BlockData(json: initialStateJson)
+//        
         
     }
     

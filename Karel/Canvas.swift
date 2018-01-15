@@ -78,19 +78,41 @@ class Canvas: UIView, CanvasDelegate {
         
         let BLOCK_DIM = Int(self.BLOCK_DIM)
         
+        var parsedBlocks = [BlockData]()
+        let initialStateJson:String = "{\"x\": 0, \"y\": 4, \"IS_WALL\": \"false\", \"HAS_KAREL\": \"true\",  \"HAS_BEEPER\": \"false\"}"
+        let initialState = BlockData(json: initialStateJson)
+        parsedBlocks.append(initialState)
+        
+        let finalStateJson:String = "{\"x\": 0, \"y\": 0, \"IS_WALL\": \"false\", \"HAS_KAREL\": \"false\",  \"HAS_BEEPER\": \"false\"}"
+        let finalState = BlockData(json: initialStateJson)
+        parsedBlocks.append(finalState)
+        
         for x in 0...BLOCK_DIM_X-1 {
             
             blocks.append([])
             
             for y in 0...BLOCK_DIM_Y-1 {
-                blocks[x].append(BlockData(x: x, y: y))
+                
+                var blockToAdd = BlockData(x: x, y: y)
+                
+                for block in parsedBlocks {
+                    if block == blockToAdd {
+                        blockToAdd = block
+                    }
+                }
+                
+                if blockToAdd.HAS_KAREL {
+                    currentKarelBlock = blockToAdd
+                }
+ 
+                blocks[x].append(blockToAdd)
                 
                 let blockData = blocks[x][y]
                 
-                if (x==0 && y==BLOCK_DIM_Y-1) {
-                    blockData.HAS_KAREL = true
-                    currentKarelBlock = blockData
-                }
+//                if (x==0 && y==BLOCK_DIM_Y-1) {
+//                    blockData.HAS_KAREL = true
+//                    currentKarelBlock = blockData
+//                }
                 
                 self.addSubview(BlockView(data: blockData, frame: CGRect(origin: CGPoint(x: DISTANCE_FROM_BOUNDARY + x*BLOCK_DIM, y: y*BLOCK_DIM), size: BLOCK_SIZE), delegate: self))
             }

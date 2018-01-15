@@ -1,3 +1,4 @@
+
 //
 //  BlockData.swift
 //  Karel
@@ -72,10 +73,17 @@ class BlockData : EVObject {
     }
     
     required convenience init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.init(coder: coder)
+//        fatalError("init(coder:) has not been implemented")
     }
     
     required init() {
-        fatalError("init() has not been implemented")
+        super.init()
+//        fatalError("init() has not been implemented")
+    }
+    
+    override func isEqual(_ object: Any?) -> Bool {
+        let blockObj = object as! BlockData
+        return self.x == blockObj.x && self.y == blockObj.y
     }
 }
