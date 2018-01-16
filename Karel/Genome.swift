@@ -3,8 +3,8 @@
 //  Genome.swift
 //  Karel
 //
-//  Created by Gokul Rajan on 15.01.18.
-//  Copyright © 2018 RAJAN. All rights reserved.
+//  Created by Gokul Rajan on 15.10.17.
+//  Copyright © 2017 RAJAN. All rights reserved.
 //
 
 import UIKit
@@ -13,7 +13,7 @@ class Genome: NSObject {
     
     var geneCount: Int?
     
-    var genes: Array<Gene>?
+    var genes: [Gene]?
     
     static func randomGenome(geneCount: Int) -> Genome {
         
@@ -30,5 +30,6 @@ class Genome: NSObject {
     init(geneCount: Int) {
         
         self.geneCount = geneCount
+        self.genes = [Gene]()
     }
 }

@@ -2,7 +2,7 @@
 //  Block.swift
 //  Karel
 //
-//  Created by RAJAN on 4/14/17.
+//  Created by RAJAN on 14.09.17.
 //  Copyright © 2017 RAJAN. All rights reserved.
 //
 
@@ -22,7 +22,7 @@ class BlockView: UIView, BlockViewDelegate {
     init(data: BlockData, frame: CGRect, delegate: CanvasDelegate) {
         self.blockData = data
         super.init(frame: frame)
-        self.backgroundColor = UIColor.white
+        drawBackground()
         NotificationCenter.default.addObserver(self, selector: #selector(setNeedsDisplay as () -> (Void)), name: NSNotification.Name(rawValue: "BlockUpdated"), object: nil)
         self.delegate = delegate
     }
@@ -38,7 +38,7 @@ class BlockView: UIView, BlockViewDelegate {
     override func draw(_ rect: CGRect) {
         
         drawBoundaries()
-        drawWalls()
+        drawBackground()
         drawKarel(frame: rect)
     }
     
@@ -60,12 +60,14 @@ class BlockView: UIView, BlockViewDelegate {
         path.fill()
     }
     
-    func drawWalls() {
+    func drawBackground() {
         
         if blockData.IS_WALL {
             self.backgroundColor = UIColor.black
         }
-
+        else {
+            self.backgroundColor = UIColor.white
+        }
 //        let path = UIBezierPath()
 //
 //        if (blockData.HAS_WALL_LEFT) {

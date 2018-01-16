@@ -2,8 +2,8 @@
 //  Gene.swift
 //  Karel
 //
-//  Created by Gokul Rajan on 15.01.18.
-//  Copyright © 2018 RAJAN. All rights reserved.
+//  Created by Gokul Rajan on 15.10.17.
+//  Copyright © 2017 RAJAN. All rights reserved.
 //
 
 import UIKit

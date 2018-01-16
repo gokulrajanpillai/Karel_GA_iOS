@@ -34,4 +34,8 @@ class KarelData {
     func directionUpdated() {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "KarelDirectionChanged"), object: nil)
     }
+    
+    func reset() {
+        direction = .Right
+    }
 }

@@ -12,11 +12,12 @@ import UIKit
 protocol KarelDelegate {
     
     func getKarelDirection() -> KarelDirection
+    
 }
 
 class Karel: KarelDelegate{
     
-    let data: KarelData?
+    let karelData: KarelData?
     
     var karelEnvironmentView: UIView?
     
@@ -25,25 +26,30 @@ class Karel: KarelDelegate{
     init(view: UIView, row: Int = 5, column: Int = 5, backgroundColor: UIColor = UIColor.white) {
         
         karelEnvironmentView     = view
-        data                     = KarelData()
+        karelData                     = KarelData()
         canvas                   = Canvas(frame: (karelEnvironmentView?.bounds)!, row: row, column: column, backgroundColor: backgroundColor, delegate: self)
         self.karelEnvironmentView?.addSubview(self.canvas!)
     }
     
+    func resetKarelEnvironment() {
+        canvas!.resetEnvironment()
+        karelData?.reset()
+    }
+    
     func move() {
-        canvas!.moveKarel(direction: data!.direction)
+        canvas!.moveKarel(direction: karelData!.direction)
     }
     
     func turnLeft() {
-        data!.turnLeft()
+        karelData!.turnLeft()
     }
     
     func turnRight() {
-        data!.turnRight()
+        karelData!.turnRight()
     }
     
     func getKarelDirection() -> KarelDirection {
-        return data!.direction
+        return karelData!.direction
     }
 
 }

@@ -2,7 +2,7 @@
 //  Canvas.swift
 //  Karel
 //
-//  Created by RAJAN on 4/14/17.
+//  Created by RAJAN on 14.09.17.
 //  Copyright © 2017 RAJAN. All rights reserved.
 //
 
@@ -28,6 +28,8 @@ class Canvas: UIView, CanvasDelegate {
     private var blocks = [[BlockData]]()
     
     private var delegate: KarelDelegate?
+    
+    private var finalBlock: BlockData?
     
     init(frame: CGRect, row: Int = 5, column: Int = 5, backgroundColor: UIColor = UIColor.white, delegate: KarelDelegate) {
         
@@ -74,6 +76,43 @@ class Canvas: UIView, CanvasDelegate {
     
     override func draw(_ rect: CGRect) {
         
+        resetEnvironment()
+    }
+    
+    func moveKarel(direction: KarelDirection) {
+    
+        let futureKarelBlock = getFutureBlock(direction: direction)
+        
+        // If the new block exists
+        if let futureBlock = futureKarelBlock {
+            
+            // If the new block is not a wall
+            if !futureBlock.IS_WALL {
+                
+                currentKarelBlock.HAS_KAREL =   false
+                futureBlock.HAS_KAREL       =   true
+                currentKarelBlock           =   futureBlock
+            }
+        }
+    }
+    
+    func resetEnvironment() {
+        
+        removeBlocks()
+        addBlocks()
+    }
+    
+    func removeBlocks() {
+        
+        blocks.removeAll()
+        //Remove all subviews
+        for view in self.subviews {
+            view.removeFromSuperview()
+        }
+    }
+    
+    func addBlocks() {
+        
         let BLOCK_SIZE = CGSize(width: self.BLOCK_DIM, height: self.BLOCK_DIM)
         
         let BLOCK_DIM = Int(self.BLOCK_DIM)
@@ -83,9 +122,15 @@ class Canvas: UIView, CanvasDelegate {
         let initialState = BlockData(json: initialStateJson)
         parsedBlocks.append(initialState)
         
+//        let wallJson: String = "{\"x\": 1, \"y\": 4, \"IS_WALL\": \"true\", \"HAS_KAREL\": \"false\",  \"HAS_BEEPER\": \"false\"}"
+//        let wallState = BlockData(json: wallJson)
+//        parsedBlocks.append(wallState)
+        
         let finalStateJson:String = "{\"x\": 0, \"y\": 0, \"IS_WALL\": \"false\", \"HAS_KAREL\": \"false\",  \"HAS_BEEPER\": \"false\"}"
-        let finalState = BlockData(json: initialStateJson)
+        let finalState = BlockData(json: finalStateJson)
         parsedBlocks.append(finalState)
+        
+        finalBlock = finalState
         
         for x in 0...BLOCK_DIM_X-1 {
             
@@ -104,34 +149,17 @@ class Canvas: UIView, CanvasDelegate {
                 if blockToAdd.HAS_KAREL {
                     currentKarelBlock = blockToAdd
                 }
- 
+                
                 blocks[x].append(blockToAdd)
                 
                 let blockData = blocks[x][y]
                 
-//                if (x==0 && y==BLOCK_DIM_Y-1) {
-//                    blockData.HAS_KAREL = true
-//                    currentKarelBlock = blockData
-//                }
+                //                if (x==0 && y==BLOCK_DIM_Y-1) {
+                //                    blockData.HAS_KAREL = true
+                //                    currentKarelBlock = blockData
+                //                }
                 
                 self.addSubview(BlockView(data: blockData, frame: CGRect(origin: CGPoint(x: DISTANCE_FROM_BOUNDARY + x*BLOCK_DIM, y: y*BLOCK_DIM), size: BLOCK_SIZE), delegate: self))
-            }
-        }
-    }
-    
-    func moveKarel(direction: KarelDirection) {
-    
-        let futureKarelBlock = getFutureBlock(direction: direction)
-        
-        // If the new block exists
-        if let futureBlock = futureKarelBlock {
-            
-            // If the new block is not a wall
-            if !futureBlock.IS_WALL {
-                
-                currentKarelBlock.HAS_KAREL =   false
-                futureBlock.HAS_KAREL       =   true
-                currentKarelBlock           =   futureBlock
             }
         }
     }

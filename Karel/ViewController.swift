@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  Karel
 //
-//  Created by RAJAN on 4/14/17.
+//  Created by RAJAN on 14.09.17.
 //  Copyright © 2017 RAJAN. All rights reserved.
 //
 
@@ -16,11 +16,12 @@ class ViewController: UIViewController {
     
     var canvas: Canvas! = nil
     
+    var gAController: GAController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 //        fetchInitialAndFinalStates()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -47,7 +48,10 @@ class ViewController: UIViewController {
     // MARK: - User Actions
 
     @IBAction func turnLeft(_ sender: Any) {
-        karel!.turnLeft()
+        gAController = GAController(karel: karel)
+        gAController?.createInitialPopulation()
+        gAController?.executeGenomes()
+//        karel!.turnLeft()
     }
 
     @IBAction func turnRight(_ sender: Any) {
@@ -57,5 +61,6 @@ class ViewController: UIViewController {
     @IBAction func move(_ sender: Any) {
         karel!.move()
     }
+    
 }
 
