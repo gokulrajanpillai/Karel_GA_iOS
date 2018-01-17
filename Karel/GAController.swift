@@ -71,7 +71,9 @@ class GAController: NSObject {
         
         for _ in 0..<GAController.POPULATION_COUNT {
             
-            genomes?.append(Genome.randomGenome(geneCount: GAController.GENE_COUNT))
+            var genome = Genome.randomGenome(geneCount: GAController.GENE_COUNT)
+            genome.optimize()
+            genomes?.append(genome)
         }
     }
     
@@ -98,6 +100,7 @@ class GAController: NSObject {
             }
             else {
                 print("Successfull genome: ",genome.genes!)
+                karelReachedDestination = true
             }
         }
     }
@@ -114,7 +117,7 @@ class GAController: NSObject {
     }
     
     fileprivate func executeGeneInEnvironment(gene: Gene) {
-        usleep(250000)
+        usleep(500000)
         DispatchQueue.main.async {
             //Do actions
             switch gene {
@@ -154,6 +157,8 @@ class GAController: NSObject {
                 genomes?.remove(at: i)
             }
         }
+        
+//        originalDistance = originalDistance! - 1
     }
     
     // Sort based on r1+r3
@@ -174,12 +179,17 @@ class GAController: NSObject {
         
             let parent1 = selectParentFromGenomes()
             let parent2 = selectParentFromGenomes()
-            if parent1.isEqual(genome: parent2) {
-                parent1.mutate()
-            }
+//            if parent1.isEqual(genome: parent2) {
+//                parent1.mutate()
+//            }
             newPopulation.append(parent1.crossover(genome: parent2))
             newPopulation.append(parent2.crossover(genome: parent1))
         }
+        
+        for genomes in newPopulation {
+            genomes.optimize()
+        }
+        
         self.genomes = newPopulation
     }
     

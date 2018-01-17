@@ -126,7 +126,7 @@ class Canvas: UIView, CanvasDelegate {
 //        let wallState = BlockData(json: wallJson)
 //        parsedBlocks.append(wallState)
         
-        let finalStateJson:String = "{\"x\": 0, \"y\": 0, \"IS_WALL\": \"false\", \"HAS_KAREL\": \"false\",  \"HAS_BEEPER\": \"false\"}"
+        let finalStateJson:String = "{\"x\": 4, \"y\": 4, \"IS_WALL\": \"false\", \"HAS_KAREL\": \"false\",  \"HAS_BEEPER\": \"false\"}"
         let finalState = BlockData(json: finalStateJson)
         parsedBlocks.append(finalState)
         
