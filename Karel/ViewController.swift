@@ -49,8 +49,10 @@ class ViewController: UIViewController {
 
     @IBAction func turnLeft(_ sender: Any) {
         gAController = GAController(karel: karel)
-        gAController?.createInitialPopulation()
-        gAController?.executeGenomes()
+
+        gAController?.startGeneticAlgorithm()
+//        gAController?.createInitialPopulation()
+//        gAController?.executeGenomes()
 //        karel!.turnLeft()
     }
 
