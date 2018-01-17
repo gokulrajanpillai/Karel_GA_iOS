@@ -23,13 +23,13 @@ class Canvas: UIView, CanvasDelegate {
     
     private var DISTANCE_FROM_BOUNDARY = 0
     
-    private var currentKarelBlock : BlockData! = nil
+    var currentKarelBlock : BlockData! = nil
     
     private var blocks = [[BlockData]]()
     
     private var delegate: KarelDelegate?
     
-    private var finalBlock: BlockData?
+    var finalBlock: BlockData?
     
     init(frame: CGRect, row: Int = 5, column: Int = 5, backgroundColor: UIColor = UIColor.white, delegate: KarelDelegate) {
         

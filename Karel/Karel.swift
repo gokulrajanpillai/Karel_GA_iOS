@@ -15,7 +15,7 @@ protocol KarelDelegate {
     
 }
 
-class Karel: KarelDelegate{
+class Karel: KarelDelegate, GADelegate {
     
     let karelData: KarelData?
     
@@ -26,7 +26,7 @@ class Karel: KarelDelegate{
     init(view: UIView, row: Int = 5, column: Int = 5, backgroundColor: UIColor = UIColor.white) {
         
         karelEnvironmentView     = view
-        karelData                     = KarelData()
+        karelData                = KarelData()
         canvas                   = Canvas(frame: (karelEnvironmentView?.bounds)!, row: row, column: column, backgroundColor: backgroundColor, delegate: self)
         self.karelEnvironmentView?.addSubview(self.canvas!)
     }
@@ -52,4 +52,14 @@ class Karel: KarelDelegate{
         return karelData!.direction
     }
 
+    // MARK :- GA Delegate
+    func getCurrentBlockData() -> BlockData? {
+        
+        return canvas!.currentKarelBlock
+    }
+    
+    func getDestinationBlockData() -> BlockData? {
+        
+        return canvas!.finalBlock
+    }
 }

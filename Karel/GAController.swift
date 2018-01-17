@@ -9,6 +9,13 @@
 import UIKit
 
 
+protocol GADelegate {
+    
+    func getCurrentBlockData() -> BlockData?
+    
+    func getDestinationBlockData() -> BlockData?
+}
+
 class GAController: NSObject {
 
     static let INITIAL_POPULATION_COUNT = 10
@@ -17,6 +24,10 @@ class GAController: NSObject {
     
     static let ALPHA = GENE_COUNT/2
     
+    static let CALC_FREQ = GENE_COUNT/ALPHA
+    
+    var originalDistance: Int?
+    
     var karelController: Karel?
     
     var genomes: [Genome]?
@@ -24,6 +35,21 @@ class GAController: NSObject {
     init(karel: Karel?) {
         
         karelController = karel!
+    }
+    
+    func startGeneticAlgorithm() {
+        
+        findOriginalDistance()
+        
+        createInitialPopulation()
+        executeGenomes()
+        filterGenomesWithHighR2()
+        sortAndRepopulateGenomes()
+    }
+    
+    func findOriginalDistance() {
+        
+        originalDistance = self.karelController?.getCurrentBlockData()?.distance(self.karelController?.getDestinationBlockData())
     }
     
     func createInitialPopulation() {
@@ -47,7 +73,11 @@ class GAController: NSObject {
                     self.karelController?.resetKarelEnvironment()
                 }
                 print("Genome: ",genome.genes!)
-                for gene in genome.genes! {
+                
+                for i in 0..<genome.geneCount! {
+                    
+                    let gene = genome.genes![i]
+                    
                     usleep(500000)
                     DispatchQueue.main.async {
                         //Do actions
@@ -57,9 +87,49 @@ class GAController: NSObject {
                         case Gene.Right :   self.karelController?.turnRight()
                         }
                     }
+                    
+                    if (i % GAController.CALC_FREQ == 0) {
+                        
+                        let distance = self.karelController?.getCurrentBlockData()?.distance(self.karelController?.getDestinationBlockData())
+                        
+                        //Set r1 value (Minimum distance)
+                        if (genome.r1! == -1 || genome.r1! > distance!) {
+                            genome.r1 = distance
+                        }
+
+                        //Set r2 value (Maximum distance)
+                        if genome.r2! == -1 || genome.r2! < distance! {
+                            genome.r2 = distance
+                        }
+                        
+                        //Set r3 value (Maximum distance)
+                        genome.r3 = genome.r3! + distance!
+                    }
                 }
+                
+                genome.r3 = genome.r3! / GAController.ALPHA
             }
         }
+    }
+    
+    func filterGenomesWithHighR2() {
         
+        var genomeCopy = [Genome]()
+        for genome in genomes! {
+            genomeCopy.append(Genome.copy(genome: genome))
+        }
+        
+        for i in 0..<genomeCopy.count {
+            
+            let genome = genomeCopy[i]
+            if genome.r2! > originalDistance! + 1 {
+                genomes?.remove(at: i)
+            }
+        }
+    }
+    
+    func sortAndRepopulateGenomes() {
+        
+        genomes?.sort(by: { $0.r4() < $1.r4()})
     }
 }

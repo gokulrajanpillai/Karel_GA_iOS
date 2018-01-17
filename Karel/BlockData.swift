@@ -86,4 +86,8 @@ class BlockData : EVObject {
         let blockObj = object as! BlockData
         return self.x == blockObj.x && self.y == blockObj.y
     }
+    
+    func distance(_ block: BlockData?) -> Int {
+        return abs(x - block!.x) + abs(y - block!.y)
+    }
 }

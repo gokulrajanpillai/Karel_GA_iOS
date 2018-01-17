@@ -15,6 +15,12 @@ class Genome: NSObject {
     
     var genes: [Gene]?
     
+    var r1: Int?
+    
+    var r2: Int?
+    
+    var r3: Int?
+    
     static func randomGenome(geneCount: Int) -> Genome {
         
         let genome: Genome = Genome(geneCount: geneCount)
@@ -27,9 +33,28 @@ class Genome: NSObject {
         return genome
     }
     
+    static func copy(genome genomeToCopy: Genome) -> Genome {
+        
+        let genome: Genome = Genome(geneCount: genomeToCopy.geneCount!)
+        
+        for gene in genomeToCopy.genes! {
+            
+            genome.genes?.append(gene)
+        }
+        
+        return genome
+    }
+    
     init(geneCount: Int) {
         
         self.geneCount = geneCount
         self.genes = [Gene]()
+        r1 = -1
+        r2 = -1
+        r3 = 0
+    }
+    
+    func r4() -> Int {
+        return r1! + r3!
     }
 }
