@@ -33,21 +33,11 @@ class ViewController: UIViewController {
     /**
      Fetch the initial and final states of the map from the json inputs
      */
-    func fetchInitialAndFinalStates() {
-        
-//        let initialStateJson:String = "{\"x\": 0, \"y\": 0, \"isWall\": \"false\", \"isKarelPresent\": \"true\",  \"karelDirection\": \"right\", \"isBeeperPresent\": \"false\"}"
-//        let initialState = BlockData(json: initialStateJson)
-//        
-//        
-//        let finalStateJson:String = "{\"x\": 0, \"y\": 0, \"isWall\": \"false\", \"isKarelPresent\": \"true\",  \"karelDirection\": \"right\", \"isBeeperPresent\": \"false\"}"
-//        let finalState = BlockData(json: initialStateJson)
-//        
-        
-    }
+    
     
     // MARK: - User Actions
 
-    @IBAction func turnLeft(_ sender: Any) {
+    @IBAction func startGeneticAlgorithm(_ sender: Any) {
         gAController = GAController(karel: karel)
 
         gAController?.startGeneticAlgorithm()
@@ -56,13 +46,13 @@ class ViewController: UIViewController {
 //        karel!.turnLeft()
     }
 
-    @IBAction func turnRight(_ sender: Any) {
-        karel!.turnRight()
-    }
-    
-    @IBAction func move(_ sender: Any) {
-        karel!.move()
-    }
+//    @IBAction func turnRight(_ sender: Any) {
+//        karel!.turnRight()
+//    }
+//
+//    @IBAction func move(_ sender: Any) {
+//        karel!.move()
+//    }
     
 }
 

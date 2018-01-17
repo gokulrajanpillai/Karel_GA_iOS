@@ -101,6 +101,7 @@ class GAController: NSObject {
             else {
                 print("Successfull genome: ",genome.genes!)
                 karelReachedDestination = true
+                exit(1)
             }
         }
     }
